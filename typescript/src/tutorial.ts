@@ -1,3 +1,4 @@
+import { boolean } from 'zod';
 import { Student, person } from './actions';
 // function calculatePrice(price:number, discount?:number):number{
 //     return price - (discount || 0);
@@ -602,34 +603,115 @@ import { Student, person } from './actions';
 //     data: ['random', 1],
 // }
 
-const url = 'https://www.course-api.com/react-tours-project';
+// import { z } from 'zod';
 
-type Tour = {
-    id: string,
-    name: string,
-    info: string,
-    image: string,
-    price: string
+// const url = 'https://www.course-api.com/react-tours-project';
+
+// const tourSchema = z.object({
+//     id: z.string(),
+//     name: z.string(),
+//     info: z.string(),
+//     image: z.string(),
+//     price: z.string()
+
+// });
+
+// type Tour = z.infer<typeof tourSchema>
+
+// async function fetchData(url: string): Promise<Tour[]> {
+//     try {
+//         const response = await fetch(url);
+//         if(!response.ok) {
+//             throw new Error(`HTTP error! status:${response.status}`)
+//         }
+//         const rawData: Tour[] = await response.json();
+
+//         const result = tourSchema.array().safeParse(rawData);
+
+//         if(!result.success) {
+//             throw new Error(`I nvalid data: ${result.error}`)
+//         }
+
+//         return result.data;
+//     } catch (error) {
+//         const errorMsg = error instanceof Error? error.message
+//             : 'there was an error...';
+//         console.log(errorMsg);
+//         return [];
+//     }
+// }
+
+// const tours = await fetchData(url);
+// tours.map((tour) => {
+//     console.log(tour.name);
+// });
+
+// class Book {
+//     // public readonly title: string;
+//     // public author: string;
+//     private checkedOut: boolean = false;
+//     constructor(readonly title: string, 
+//         public author: string,
+//         private someValue: number) { }
+
+//     // public getSomeValue() {
+//     //     return this.someValue;
+//     // }
+
+//     get info() {
+//         return `${this.title} by ${this.author}`;
+//     }
+
+//     private set CheckOut (checkedOut: boolean) {
+//         this.checkedOut = checkedOut;
+//     }
+
+//     get checkOut() {
+//         return this.checkedOut;
+//     }
+
+//     public get someInfo() {
+//         this.checkOut = true;
+//         return `${this.title} by ${this.author}`;
+//     }
+
+//     // public checkOut() {
+//     //     this.checkedOut = this.toggleCheckOutStatus();
+//     // }
+
+//     // public isCheckedOut() {
+//     //     return this.checkOut;
+//     // }
+//     // private toggleCheckOutStatus() {
+//     //     return !this.checkOut;
+//     // }
+// }
+
+// const deepWrok = new Book('Deep Work', 'Cal Newport', 45);
+// // console.log(deepWrok); // {title: 'Deep Work', author: 'Cal Newport'}
+// // console.log(deepWrok.title);
+// // deepWrok.checkOut();
+// // deepWrok.checkOut();
+// // console.log(deepWrok.isCheckedOut());
+// // console.log(deepWrok);
+// console.log(deepWrok.info)
+// // deepWrok.CheckOut = true;
+// console.log(deepWrok);
+// console.log(deepWrok.someInfo);
+// console.log(deepWrok.checkOut);
+
+interface IPreson {
+    name: string;
+    age: number;
+    greet(): void;
 }
 
-async function fetchData(url: string): Promise<Tour[]> {
-    try {
-        const response = await fetch(url);
-        if(!response.ok) {
-            throw new Error(`HTTP error! status:${response.status}`)
-        }
-        const data: Tour[] = await response.json();
-        console.log(data);
-        return data;
-    } catch (error) {
-        const errorMsg = error instanceof Error? error.message
-            : 'there was an error...';
-        console.log(errorMsg);
-        return [];
+class Person implements IPreson {
+    constructor(public name: string, public age:number) {}
+    greet(): void {
+        console.log(`Hello, my name is ${this.name} and I'm ${this.age} years old.`);
     }
 }
 
-const tours = await fetchData(url);
-tours.map((tour) => {
-    console.log(tour.name);
-});
+const hipster = new Person('shakeAndBake', 100);
+hipster.greet();
